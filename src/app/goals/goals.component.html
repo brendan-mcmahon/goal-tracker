@@ -1,0 +1,6 @@
+<app-goal *ngFor="let goal of goals" [goal]="goal"></app-goal>
+<button class="btn btn-2 btn-2c" (click)="openModal()">New Goal</button>
+
+<ngx-smart-modal #myModal identifier="myModal">
+  <app-create-goal (newGoalCreated)="newGoalCreated($event)"></app-create-goal>
+</ngx-smart-modal>
