@@ -12,10 +12,13 @@ export class GoalComponent implements OnInit {
   @Input() goal: Goal;
   count: boolean[];
   numberToAdd: number;
+  readableDate: Date;
 
   constructor() { }
 
   ngOnInit() {
+    console.log(typeof this.goal.dueDate);
+    this.readableDate = new Date(parseInt(this.goal.dueDate));
     this.fillBoxes();
   }
 
@@ -47,6 +50,11 @@ export class GoalComponent implements OnInit {
 
   setCount(i: number) {
     this.goal.current = i + 1;
+    this.fillBoxes();
+  }
+
+  add(number: number) {
+    this.goal.current += number;
     this.fillBoxes();
   }
 

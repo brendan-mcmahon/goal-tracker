@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { Goal } from '../goal.model';
+import { Goal, NewGoal } from '../goal.model';
 import { NgxSmartModalService } from 'ngx-smart-modal';
+import { DbService } from '../db-service.service';
 
 @Component({
   selector: 'app-goals',
@@ -11,16 +12,16 @@ export class GoalsComponent implements OnInit, AfterViewInit {
 
   goals: Goal[];
 
-  constructor(public ngxSmartModalService: NgxSmartModalService) { }
+  constructor(public ngxSmartModalService: NgxSmartModalService, private db: DbService) {
+    this.getGoals();
+  }
+
+  private getGoals() {
+    this.db.getAllGoals()
+      .subscribe(goals => this.goals = goals);
+  }
 
   ngOnInit() {
-    this.goals = [
-      new Goal('Goal 1', new Date(2019, 5, 1), 10, 5),
-      new Goal('Goal 2', new Date(2019, 5, 1), 28, 3),
-      new Goal('Goal 3', new Date(2020, 1, 1), 99, 18),
-      new Goal('Goal 4', new Date(2020, 1, 1), 25, 25),
-      new Goal('Goal 5', new Date(2020, 1, 1), 10, 12),
-    ];
   }
 
   ngAfterViewInit() {
@@ -38,9 +39,10 @@ export class GoalsComponent implements OnInit, AfterViewInit {
     this.ngxSmartModalService.getModal('myModal').open();
   }
 
-  newGoalCreated($event: Goal) {
-    this.goals.push($event);
+  newGoalCreated($event: NewGoal) {
+    const newGoal: Goal = new Goal($event.name, $event.dueDate.getTime().toString(), $event.target);
+    this.db.addGoal(newGoal);
+    this.getGoals();
     this.ngxSmartModalService.getModal('myModal').close();
   }
-
 }

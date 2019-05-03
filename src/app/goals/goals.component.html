@@ -1,4 +1,10 @@
-<app-goal *ngFor="let goal of goals" [goal]="goal"></app-goal>
+<ul>
+    <li class="text" *ngFor="let item of items | async">
+      {{item | json}}
+    </li>
+  </ul>
+
+<app-goal class="app-goal" *ngFor="let goal of goals" [goal]="goal"></app-goal>
 <button class="btn btn-2 btn-2c" (click)="openModal()">New Goal</button>
 
 <ngx-smart-modal #myModal identifier="myModal">

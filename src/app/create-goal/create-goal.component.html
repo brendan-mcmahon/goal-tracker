@@ -1,13 +1,31 @@
-<form (ngSubmit)="create()" #goalForm="ngForm">
+<form (ngSubmit)="create()" #goalForm="ngForm" class="ui form">
+  <h1 class="ui header">New Goal:</h1>
+  <div class="fields">
 
-  <label for="name">Goal Name:</label>
-    <input type="text" id="name" name="name" [(ngModel)]="model.name" required>
+    <div class="field">
+      <label for="name">Goal Name:</label>
+      <input type="text" id="name" name="name" [(ngModel)]="model.name" required>
+    </div>
 
-    <label for="dueDate">Due By:</label>
-    <input type="date" id="dueDate" name="dueDate" [(ngModel)]="model.dueDate" required>
+    <div class="field">
+      <label for="dueDate">Due By:</label>
+      <div class="ui left icon input">
+        <i class="calendar icon"></i>
+        <input suiDatepicker
+          type="date"
+          id="dueDate"
+          name="dueDate"
+          [(ngModel)]="model.dueDate"
+          required>
+      </div>
+    </div>
 
-    <label for="Target">Goal Target:</label>
-    <input type="number" id="target" name="target" [(ngModel)]="model.target" required>
+    <div class="field">
+      <label for="Target">Goal Target:</label>
+        <input type="number" id="target" name="target" [(ngModel)]="model.target" required>
+    </div>
+  </div>
 
-    <button type="submit" class="btn btn-success">Submit</button>
-</form>
+    <button type="submit" class="ui primary submit button">Save</button>
+
+  </form>

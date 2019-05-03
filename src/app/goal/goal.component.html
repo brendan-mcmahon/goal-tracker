@@ -1,21 +1,26 @@
-<div class="header">
-    <div>
-    <h2>{{goal.name}}</h2>
-    <h4>Due by: {{goal.dueDate | date:'MMM d, yyyy'}}</h4>
+<div class="goal-container">
+  <div class="header">
+      <div>
+      <h3>{{goal.name}}</h3>
+      <p>{{readableDate | date:'MMM d, yyyy'}}</p>
+      <!-- <p>Due by: {{new Date(goal.dueDate) | date:'MMM d, yyyy'}}</p> -->
+    </div>
+    <div class="numbers">
+      <h4>{{  goal.current}} / {{goal.target}}</h4>
+      <form (submit)="addCount()">
+          <h4><i class="plus icon"></i><input type="number" [(ngModel)]="numberToAdd" name="numberToAdd" /></h4>
+      <button type="submit" hidden></button>
+      </form>
+    </div>
   </div>
-  <div class="numbers">
-    <h3>{{  goal.current}} / {{goal.target}}</h3>
-    <form (submit)="addCount()">
-        <h4>+<input type="number" [(ngModel)]="numberToAdd" name="numberToAdd" /></h4>
-    <button type="submit" hidden></button>
-    </form>
-  </div>
-</div>
-<div class="container">
-  <div
-    *ngFor="let box of count; let i = index"
-    [ngClass]="getClasses(box, i)"
-    (click)="setCount(i)">
+  <div class="container">
+    <div class="subtract button"><i class="minus icon" (click)="add(-1)"></i></div>
+    <div
+      *ngFor="let box of count; let i = index"
+      [ngClass]="getClasses(box, i)"
+      (click)="setCount(i)">
+    </div>
+    <div class="add button"><i class="plus icon" (click)="add(1)"></i></div>
   </div>
 </div>
 <hr />

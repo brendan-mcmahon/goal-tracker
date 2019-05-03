@@ -1,7 +1,16 @@
+.goal-container {
+  padding: 20px;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: lightgray;
+  color: black;
 }
 
 input {
@@ -14,6 +23,7 @@ input {
 .container {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .numbers {
@@ -31,12 +41,12 @@ input {
   margin: 1px;
   border-radius: 5px;
 }
+
 .empty {
   background-color: white;
   &:hover {
     background-color: grey;
   }
-
 }
 
 .fill {
@@ -49,4 +59,42 @@ input {
 .extra {
   background-color: gold;
   box-shadow: 0px 0px 5px 1px rgba(247,255,0,1);
+}
+
+.add {
+  color: green;
+}
+
+.subtract {
+  color: red;
+}
+
+.button {
+  background-color: white;
+  border: solid lightgrey 1px;
+  height: 20px;
+  width: 19px;
+  margin-left: 5px;
+  margin-right: 5px;
+	cursor: pointer;
+	font-weight: 700;
+	outline: none;
+	border-radius: 5px;
+	box-shadow: 0 3px 10px grey;
+  &:hover {
+    box-shadow: 0 2px 10px grey;
+    top: 1px;
+  }
+  &:active {
+    box-shadow: 0 0 5px grey;
+    top: 3px;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+  }
 }
