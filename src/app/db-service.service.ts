@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Goal } from './goal.model';
-// import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { AngularFireDatabase } from '@angular/fire/database';
 
@@ -8,44 +7,32 @@ import { AngularFireDatabase } from '@angular/fire/database';
   providedIn: 'root'
 })
 export class DbService {
-  // goalDocRef: AngularFirestoreCollection<Goal>;
   goals: Observable<Goal[]>;
 
   constructor(private db: AngularFireDatabase) { }
-  // create
+
   addGoal(goal: Goal) {
-    console.log(`adding goal: ${JSON.stringify(goal)}`);
     this.db.list<Goal>('goals').push(goal);
-    // this.db.collection<Goal>('goals').add({
-    //   current: 0,
-    //   dueDate: goal.dueDate,
-    //   name: goal.name,
-    //   target: goal.target
-    // });
   }
 
-  // read
-  getAllGoals():  Observable<Goal[]> {
-    return this.db.list<Goal>('goals').valueChanges();
+  getAllGoals():  Goal[] {
+    const goals: Goal[] = [];
+    this.db.list<Goal>('goals').snapshotChanges()
+      .subscribe(actions => {
+        actions.forEach(action => {
+          const g = action.payload.val();
+          goals.push(new Goal(action.key, g.name, g.dueDate, g.target, g.current));
+        });
+      });
+    return goals;
   }
 
-  updateGoal(goal: Goal) {
-    this.db.list<Goal>('goals').update('key', goal);
+  updateGoal(goal: Goal): void {
+    this.db.object(`/goals/${goal.id}`).update(goal);
   }
 
-  //update
-  // updateGoal(goal: Goal) {
-  //   this.goalDocRef = this.db.collection<Goal>('goals');
-
-  //   this.goals = this.goalDocRef.snapshotChanges().map( actions => {
-  //     return actions.map(action => {
-  //       const data = action.payload.doc.data() as Goal;
-  //       const id = action.payload.doc.id;
-  //       return { id, ...data };
-  //     });
-  //   })
-  // }
-
-  //delete
+  deleteGoal(goalId: string) {
+    this.db.object(`/goals/${goalId}`).remove();
+  }
 
 }

@@ -1,18 +1,37 @@
 <div class="goal-container">
+
   <div class="header">
-      <div>
+
+    <div class="info">
+    <div>
       <h3>{{goal.name}}</h3>
-      <p>{{readableDate | date:'MMM d, yyyy'}}</p>
-      <!-- <p>Due by: {{new Date(goal.dueDate) | date:'MMM d, yyyy'}}</p> -->
+      <p>Due by: <span style="font-weight: bold">{{readableDate | date:'MMM d, yyyy'}}</span></p>
+      <p>{{daysRemaining}} days remaining</p>
     </div>
+
     <div class="numbers">
       <h4>{{  goal.current}} / {{goal.target}}</h4>
       <form (submit)="addCount()">
-          <h4><i class="plus icon"></i><input type="number" [(ngModel)]="numberToAdd" name="numberToAdd" /></h4>
-      <button type="submit" hidden></button>
+        <h4><i class="plus icon"></i><input type="number" [(ngModel)]="numberToAdd" name="numberToAdd" /></h4>
+        <button type="submit" hidden></button>
       </form>
     </div>
+
   </div>
+
+    <div class="edit-panel">
+      <div class="carat" *ngIf="!showMore" (click)="showMore = true;"><i class="fas fa-angle-down"></i></div>
+      <div class="carat" *ngIf="showMore" (click)="showMore = false;"><i class="fas fa-angle-up"></i></div>
+      <div *ngIf="showMore" class="edit-buttons">
+        <div (click)="openEditDialog()"><i class="fas fa-pencil-alt"></i></div>
+        <div (click)="openDeleteDialog()"><i class="far fa-trash-alt"></i></div>
+      </div>
+      <div *ngIf="editDialog"><i class="fas fa-trash"></i></div>
+    </div>
+  </div>
+
+
+
   <div class="container">
     <div class="subtract button"><i class="minus icon" (click)="add(-1)"></i></div>
     <div
@@ -24,3 +43,15 @@
   </div>
 </div>
 <hr />
+
+<ngx-smart-modal #editModal identifier="{{editModalId}}">
+    <app-edit-goal [goal]="goal"></app-edit-goal>
+</ngx-smart-modal>
+
+
+<ngx-smart-modal #deleteModal identifier="{{deleteModalId}}">
+  <h3>You are deleting <span style="font-weight:bolder;">{{goal.name}}</span></h3>
+  <p>Are you sure you want to do that?</p>
+  <button class="med-btn success-btn" type="button" (click)="confirmDelete()">Yes, delete</button>
+  <button class="med-btn danger-btn" type="button" (click)="cancelDelete()">No! Cancel!</button>
+</ngx-smart-modal>

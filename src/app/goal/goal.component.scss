@@ -3,14 +3,18 @@
 }
 
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 10px;
   background-color: lightgray;
   color: black;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
 }
 
 input {
@@ -51,8 +55,10 @@ input {
 
 .fill {
   background-color: green;
+  background-color: #4dcb62;
   &:hover {
     background-color: darkgreen;
+    background-color: #3caa4e;
   }
 }
 
@@ -62,11 +68,33 @@ input {
 }
 
 .add {
-  color: green;
+  color: #4dcb62;
 }
 
 .subtract {
   color: red;
+}
+
+.edit-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  > {
+    div {
+      padding: 8px;
+    }
+    .edit-buttons {
+      display: flex;
+      background-color: silver;
+      border-radius: 5px;
+      > {
+        div {
+          padding: 8px;
+        }
+      }
+    }
+  }
 }
 
 .button {
@@ -96,5 +124,23 @@ input {
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
     transition: all 0.3s;
+  }
+}
+
+
+@media screen and (max-width: 450px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    font-weight: 900;
+    h3 {
+      font-size: 2rem
+    }
+  }
+
+  .numbers {
+    align-self: flex-end;
+    flex-direction: column;
+    align-items: center;
   }
 }

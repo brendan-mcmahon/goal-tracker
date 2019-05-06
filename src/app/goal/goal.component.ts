@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Goal } from '../goal.model';
-import { FormsModule } from '@angular/forms';
+import { NgxSmartModalService } from 'ngx-smart-modal';
+import { DbService } from '../db-service.service';
 
 @Component({
   selector: 'app-goal',
@@ -10,16 +11,24 @@ import { FormsModule } from '@angular/forms';
 export class GoalComponent implements OnInit {
 
   @Input() goal: Goal;
+  @Output() triggerUpdate = new EventEmitter();
   count: boolean[];
   numberToAdd: number;
   readableDate: Date;
+  daysRemaining: number;
+  editDialog = false;
+  editModalId: string;
+  deleteModalId: string;
+  showMore = false;
 
-  constructor() { }
+  constructor(public ngxSmartModalService: NgxSmartModalService, private db: DbService) { }
 
   ngOnInit() {
-    console.log(typeof this.goal.dueDate);
-    this.readableDate = new Date(parseInt(this.goal.dueDate));
     this.fillBoxes();
+    this.readableDate = new Date(parseInt(this.goal.dueDate));
+    this.editModalId = `editModal:${this.goal.id}`;
+    this.deleteModalId = `deleteModal:${this.goal.id}`;
+    this.daysRemaining = this.convertMiliseconds(((new Date(parseInt(this.goal.dueDate))).getTime() - (new Date()).getTime()));
   }
 
   private fillBoxes() {
@@ -45,26 +54,48 @@ export class GoalComponent implements OnInit {
   addCount() {
     this.goal.current += this.numberToAdd;
     this.numberToAdd = null;
-    this.fillBoxes();
+    this.update();
   }
 
   setCount(i: number) {
     this.goal.current = i + 1;
-    this.fillBoxes();
+    this.update();
   }
 
   add(number: number) {
     this.goal.current += number;
-    this.fillBoxes();
+    this.update();
   }
 
-  toggle(box: boolean, i: number) {
-    if (box && i === (this.goal.current - 1 )) {
-      this.goal.current --;
-    } else if (!box && i === this.goal.current) {
-      this.goal.current++;
-    }
-    this.fillBoxes();
+  update() {
+    this.db.updateGoal(this.goal);
+    this.triggerUpdate.emit();
+  }
+
+  confirmDelete() {
+    console.log('...deleting');
+    this.db.deleteGoal(this.goal.id);
+    this.triggerUpdate.emit();
+  }
+
+  cancelDelete() {
+    this.ngxSmartModalService.getModal(this.deleteModalId).close();
+  }
+
+  openEditDialog() {
+    this.ngxSmartModalService.getModal(this.editModalId).open();
+  }
+
+  openDeleteDialog() {
+    console.log('open delete dialog...');
+    this.ngxSmartModalService.getModal(this.deleteModalId).open();
+  }
+
+  private convertMiliseconds(miliseconds: number) {
+    const total_seconds = Math.floor(miliseconds / 1000);
+    const total_minutes = Math.floor(total_seconds / 60);
+    const total_hours = Math.floor(total_minutes / 60);
+    return Math.floor(total_hours / 24);
   }
 
 }

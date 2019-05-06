@@ -1,10 +1,12 @@
 export class Goal {
+  id: string;
   name: string;
   target: number;
   current: number;
   dueDate: string;
 
-  constructor(name: string, dueDate: string, target: number, current: number = 0) {
+  constructor(id: string, name: string, dueDate: string, target: number, current: number = 0) {
+    this.id = id;
     this.name = name;
     this.dueDate = dueDate;
     this.target = target;

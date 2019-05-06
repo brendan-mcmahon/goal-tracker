@@ -13,13 +13,15 @@ import { AppComponent } from './app.component';
 import { GoalsComponent } from './goals/goals.component';
 import { GoalComponent } from './goal/goal.component';
 import { CreateGoalComponent } from './create-goal/create-goal.component';
+import { EditGoalComponent } from './edit-goal/edit-goal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GoalsComponent,
     GoalComponent,
-    CreateGoalComponent
+    CreateGoalComponent,
+    EditGoalComponent
   ],
   imports: [
     BrowserModule,

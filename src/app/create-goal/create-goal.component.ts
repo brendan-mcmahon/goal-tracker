@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Goal, NewGoal } from '../goal.model';
+import { NewGoal } from '../goal.model';
 
 @Component({
   selector: 'app-create-goal',
@@ -9,8 +9,6 @@ import { Goal, NewGoal } from '../goal.model';
 export class CreateGoalComponent implements OnInit {
   @Output() newGoalCreated = new EventEmitter<NewGoal>();
   model = new NewGoal('', null, 0, 0);
-
-  submitted = false;
 
   constructor() { }
 

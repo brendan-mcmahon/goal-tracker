@@ -39,36 +39,6 @@
   background-color: #ccc;
 }
 
-button {
-	border: none;
-	cursor: pointer;
-	padding: 25px 80px;
-	margin: 15px 30px;
-	font-weight: 700;
-	outline: none;
-	position: relative;
-	border-radius: 5px;
-	background: #cb4e4e;
-	color: #fff;
-	box-shadow: 0 6px #ab3c3c;
-  &:hover {
-    box-shadow: 0 4px #ab3c3c;
-    top: 2px;
-  }
-  &:active {
-    box-shadow: 0 0 #ab3c3c;
-    top: 6px;
-  }
-  &:after {
-    content: '';
-    position: absolute;
-    z-index: -1;
-    -webkit-transition: all 0.3s;
-    -moz-transition: all 0.3s;
-    transition: all 0.3s;
-  }
-}
-
 /* Button 1 */
 .btn-1 {
 	border: 3px solid #fff;

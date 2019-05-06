@@ -1,2 +1,79 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~ngx-smart-modal/ngx-smart-modal";
+
+.big-btn {
+	border: none;
+	cursor: pointer;
+	padding: 25px 80px;
+	margin: 15px 30px;
+	font-weight: 700;
+	outline: none;
+	position: relative;
+	border-radius: 5px;
+	color: #fff;
+  &:hover {
+    top: 2px;
+  }
+  &:active {
+    top: 6px;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+  }
+}
+
+.med-btn {
+	border: none;
+	cursor: pointer;
+	padding: 10px 40px;
+	margin: 10px 15px;
+	font-weight: 700;
+	outline: none;
+	position: relative;
+	border-radius: 5px;
+	background: #cb4e4e;
+	color: #fff;
+  box-shadow: 0 6px #ab3c3c;
+  ;
+  &:hover {
+    top: 2px;
+  }
+  &:active {
+    top: 6px;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+  }
+}
+
+.success-btn {
+  background: 0 6px #4dcb62;
+  box-shadow: 0 6px #3caa4e;
+  &:hover {
+    box-shadow: 0 6px #3caa4e;
+  }
+  &:active {
+    box-shadow: 0 6px #3caa4e;
+  }
+}
+
+.danger-btn {
+	background: #cb4e4e;
+  box-shadow: 0 6px #ab3c3c;
+  &:hover {
+    box-shadow: 0 6px #ab3c3c;
+  }
+  &:active {
+    box-shadow: 0 6px #ab3c3c;
+  }
+}
