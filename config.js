@@ -8,12 +8,15 @@ const storageBucket = process.env.firebaseStorageBucket;
 const messagingSenderId = process.env.firebaseMessagingSenderId;
 
 const configFile = fs.readFileSync('./src/environments/environment.prod.ts', 'utf-8');
-const appURL = `URL: 'https://${appName}.herokuapp.com',`;
-const newValue = configFile.replace('{apiKey}', apiKey);
-const newValue = configFile.replace('{authDomain}', authDomain);
-const newValue = configFile.replace('{databaseURL}', databaseURL);
-const newValue = configFile.replace('{projectId}', projectId);
-const newValue = configFile.replace('{storageBucket}', storageBucket);
-const newValue = configFile.replace('{messagingSenderId}', messagingSenderId);
+let newConfig = configFile.replace('{apiKey}', apiKey);
+newConfig = newConfig.replace('{authDomain}', authDomain);
+newConfig = newConfig.replace('{databaseURL}', databaseURL);
+newConfig = newConfig.replace('{projectId}', projectId);
+newConfig = newConfig.replace('{storageBucket}', storageBucket);
+newConfig = newConfig.replace('{messagingSenderId}', messagingSenderId);
 
-fs.writeFileSync('./src/environments/environment.prod.ts', newValue, 'utf-8');
+fs.writeFileSync('./src/environments/environment.prod.ts', newConfig, 'utf-8');
+
+
+const newConfigFile = fs.readFileSync('./src/environments/environment.prod.ts', 'utf-8');
+console.log(newConfigFile);
