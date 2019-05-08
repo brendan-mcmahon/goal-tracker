@@ -7,9 +7,4 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'goal-tracker';
-  loading = true;
-
-  toggleLoading() {
-    this.loading = !this.loading;
-  }
 }
