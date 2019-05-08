@@ -2,7 +2,7 @@ const fs = require("fs");
 
 const apiKey = process.env.firebaseApiKey;
 const authDomain = process.env.firebaseAuthDomain;
-const databaseURL = process.env.firebaseDatabaseURL;
+const databaseURL = process.env.firebaseDatabaseUrl;
 const projectId = process.env.firebaseProjectId;
 const storageBucket = process.env.firebaseStorageBucket;
 const messagingSenderId = process.env.firebaseMessagingSenderId;
